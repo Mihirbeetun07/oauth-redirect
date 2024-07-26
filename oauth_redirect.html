@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>OAuth Redirect</title>
+    <script>
+        // Function to extract the access token from the URL
+        function getAccessToken() {
+            const hash = window.location.hash;
+            if (hash && hash.includes('access_token')) {
+                const token = hash.split('access_token=')[1].split('&')[0];
+                // Pass the token to the opener window (Construct 3 preview)
+                window.opener.postMessage({ type: 'fbToken', token: token }, '*');
+                // Close the popup
+                window.close();
+            }
+        }
+
+        window.onload = getAccessToken;
+    </script>
+</head>
+<body>
+    <p>Redirecting...</p>
+</body>
+</html>
